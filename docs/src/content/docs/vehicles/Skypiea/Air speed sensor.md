@@ -1,0 +1,2 @@
+- ARSPD_TYPE = 1
+- ARSPD_BUS = 0

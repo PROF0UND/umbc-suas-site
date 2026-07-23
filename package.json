@@ -18,7 +18,11 @@
     "check:prettier": "prettier --check .",
     "fix": "npm run fix:eslint && npm run fix:prettier",
     "fix:eslint": "eslint --fix .",
-    "fix:prettier": "prettier -w ."
+    "fix:prettier": "prettier -w .",
+    "docs:install": "npm install --prefix docs",
+    "docs:dev": "npm run dev --prefix docs",
+    "docs:build": "npm run build --prefix docs",
+    "build:all": "npm run build && npm run docs:build && node -e \"require('fs').cpSync('docs/dist', 'dist/docs', { recursive: true })\""
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",

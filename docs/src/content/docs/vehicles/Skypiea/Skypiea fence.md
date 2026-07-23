@@ -1,0 +1,2 @@
+- FENCE_TYPE = 4
+- 
