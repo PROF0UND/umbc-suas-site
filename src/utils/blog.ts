@@ -40,18 +40,17 @@ const generatePermalink = async ({
     .join('/');
 };
 
-const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> => {
+const getNormalizedPost = async (post: CollectionEntry<'log'>): Promise<Post> => {
   const { id, data } = post;
   const { Content, remarkPluginFrontmatter } = await render(post);
 
   const {
-    publishDate: rawPublishDate = new Date(),
+    date: rawPublishDate = new Date(),
     updateDate: rawUpdateDate,
     title,
     excerpt,
     image,
-    tags: rawTags = [],
-    category: rawCategory,
+    subsystem: rawCategory,
     author,
     draft = false,
     metadata = {},
@@ -68,10 +67,9 @@ const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> =
       }
     : undefined;
 
-  const tags = rawTags.map((tag: string) => ({
-    slug: cleanSlug(tag),
-    title: tag,
-  }));
+  // The `log` schema has no `tags` field (only `subsystem`, mapped to `category` above);
+  // this stays empty so downstream components that check `post.tags` degrade gracefully.
+  const tags: Taxonomy[] = [];
 
   return {
     id: id,
@@ -101,7 +99,7 @@ const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> =
 };
 
 const load = async function (): Promise<Array<Post>> {
-  const posts = await getCollection('post');
+  const posts = await getCollection('log');
   const normalizedPosts = posts.map(async (post) => await getNormalizedPost(post));
 
   const results = (await Promise.all(normalizedPosts))

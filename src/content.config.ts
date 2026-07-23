@@ -47,10 +47,11 @@ const metadataDefinition = () =>
     })
     .optional();
 
-const postCollection = defineCollection({
-  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/post' }),
+// Build log — chronological record of team progress. Subsystem doubles as a tag.
+const logCollection = defineCollection({
+  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/log' }),
   schema: z.object({
-    publishDate: z.date().optional(),
+    date: z.date().optional(),
     updateDate: z.date().optional(),
     draft: z.boolean().optional(),
 
@@ -58,14 +59,58 @@ const postCollection = defineCollection({
     excerpt: z.string().optional(),
     image: z.string().optional(),
 
-    category: z.string().optional(),
-    tags: z.array(z.string()).optional(),
+    subsystem: z.string().optional(),
     author: z.string().optional(),
 
     metadata: metadataDefinition(),
   }),
 });
 
+// Aircraft the team has built. Retired vehicles stay published as an archive.
+const vehicleCollection = defineCollection({
+  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/vehicles' }),
+  schema: z.object({
+    name: z.string(),
+    year: z.number(),
+    status: z.enum(['active', 'retired']),
+    specs: z
+      .object({
+        wingspan: z.string().optional(),
+        MTOW: z.string().optional(),
+        endurance: z.string().optional(),
+        propulsion: z.string().optional(),
+      })
+      .optional(),
+    heroImage: z.string().optional(),
+    gallery: z.array(z.string()).optional(),
+    // Link to the vehicle's page on the (future) documentation site. Falls back to /docs when unset.
+    docsUrl: z.string().optional(),
+  }),
+});
+
+const sponsorCollection = defineCollection({
+  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/sponsors' }),
+  schema: z.object({
+    name: z.string(),
+    tier: z.string(),
+    logo: z.string(),
+    url: z.string().optional(),
+  }),
+});
+
+const teamCollection = defineCollection({
+  loader: glob({ pattern: ['*.md', '*.mdx'], base: 'src/data/team' }),
+  schema: z.object({
+    name: z.string(),
+    role: z.string(),
+    subsystem: z.string().optional(),
+    photo: z.string().optional(),
+  }),
+});
+
 export const collections = {
-  post: postCollection,
+  log: logCollection,
+  vehicles: vehicleCollection,
+  sponsors: sponsorCollection,
+  team: teamCollection,
 };

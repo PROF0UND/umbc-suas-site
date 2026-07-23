@@ -1,0 +1,73 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import Image from '~/components/common/Image.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+
+const metadata = { title: 'Team' };
+
+const members = await getCollection('team');
+const subsystems = [...new Set(members.map((m) => m.data.subsystem).filter((s): s is string => Boolean(s)))];
+const unassigned = members.filter((m) => !m.data.subsystem);
+---
+
+<Layout metadata={metadata}>
+  <WidgetWrapper>
+    <Headline title="Team" subtitle="The students behind UMBC SUAS." />
+
+    {members.length === 0 && <p class="text-muted">No team members listed yet.</p>}
+
+    {
+      subsystems.map((subsystem) => (
+        <div class="mb-10">
+          <h2 class="text-xl font-bold mb-4 capitalize">{subsystem}</h2>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+            {members
+              .filter((m) => m.data.subsystem === subsystem)
+              .map((member) => (
+                <div class="text-center">
+                  {member.data.photo && (
+                    <Image
+                      src={member.data.photo}
+                      alt={`TODO: alt — ${member.data.name}`}
+                      width={200}
+                      height={200}
+                      class="w-32 h-32 mx-auto rounded-full object-cover mb-2"
+                    />
+                  )}
+                  <p class="font-semibold">{member.data.name}</p>
+                  <p class="text-sm text-muted">{member.data.role}</p>
+                </div>
+              ))}
+          </div>
+        </div>
+      ))
+    }
+
+    {
+      unassigned.length > 0 && (
+        <div class="mb-10">
+          {subsystems.length > 0 && <h2 class="text-xl font-bold mb-4">Other</h2>}
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+            {unassigned.map((member) => (
+              <div class="text-center">
+                {member.data.photo && (
+                  <Image
+                    src={member.data.photo}
+                    alt={`TODO: alt — ${member.data.name}`}
+                    width={200}
+                    height={200}
+                    class="w-32 h-32 mx-auto rounded-full object-cover mb-2"
+                  />
+                )}
+                <p class="font-semibold">{member.data.name}</p>
+                <p class="text-sm text-muted">{member.data.role}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </WidgetWrapper>
+</Layout>

@@ -1,0 +1,27 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+
+const metadata = { title: 'Search' };
+---
+
+<Layout metadata={metadata}>
+  <WidgetWrapper>
+    <Headline title="Search" />
+    <div id="search"></div>
+  </WidgetWrapper>
+</Layout>
+
+<link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+<script>
+  // Pagefind's UI bundle is generated into /pagefind by `npm run build` (astro build && pagefind --site dist)
+  // and only exists on a built/previewed site, not in `astro dev`.
+  const script = document.createElement('script');
+  script.src = '/pagefind/pagefind-ui.js';
+  script.onload = () => {
+    // @ts-expect-error PagefindUI is loaded globally by the script above
+    new PagefindUI({ element: '#search', showSubResults: true });
+  };
+  document.body.appendChild(script);
+</script>

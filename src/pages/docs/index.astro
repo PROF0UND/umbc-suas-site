@@ -1,0 +1,22 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import Button from '~/components/ui/Button.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+const metadata = { title: 'Documentation' };
+---
+
+<Layout metadata={metadata}>
+  <WidgetWrapper>
+    <Headline
+      title="Documentation"
+      subtitle="Full aircraft documentation — design decisions, build guides, and technical specs — is coming soon on a dedicated documentation site."
+    />
+    <div class="text-center">
+      <p class="text-muted mb-6">In the meantime, see the design-decision writeup on each vehicle's page.</p>
+      <Button href={getPermalink('/vehicles')} variant="primary"> Browse vehicles </Button>
+    </div>
+  </WidgetWrapper>
+</Layout>

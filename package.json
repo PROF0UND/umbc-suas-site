@@ -1,7 +1,7 @@
 {
   "name": "umbc-suas-site",
   "version": "1.0.0-beta.63",
-  "description": "AstroWind: A free template using Astro 6 and Tailwind CSS v4. Astro starter theme.",
+  "description": "UMBC Small Unmanned Aircraft Systems (SUAS) competition team website.",
   "type": "module",
   "engines": {
     "node": ">=22.12.0"
@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
     "check": "npm run check:astro && npm run check:eslint && npm run check:prettier",
@@ -53,6 +53,7 @@
     "globals": "^17.6.0",
     "js-yaml": "^4.1.1",
     "mdast-util-to-string": "^4.0.0",
+    "pagefind": "^1.5.2",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "reading-time": "^1.5.0",

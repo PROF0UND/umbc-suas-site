@@ -1,0 +1,101 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
+import Layout from '~/layouts/PageLayout.astro';
+import Image from '~/components/common/Image.astro';
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Button from '~/components/ui/Button.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+export const getStaticPaths = (async () => {
+  const vehicles = await getCollection('vehicles');
+  return vehicles.map((vehicle) => ({
+    params: { slug: vehicle.id },
+    props: { vehicle },
+  }));
+}) satisfies GetStaticPaths;
+
+const { vehicle } = Astro.props;
+const { name, year, status, specs, heroImage, gallery, docsUrl } = vehicle.data;
+const { Content } = await render(vehicle);
+
+const metadata = { title: name };
+---
+
+<Layout metadata={metadata}>
+  <WidgetWrapper>
+    <a href={getPermalink('/vehicles')} class="text-sm hover:underline">&larr; All vehicles</a>
+
+    <div class="flex flex-wrap items-baseline justify-between gap-4 mt-4 mb-8">
+      <h1 class="text-4xl font-bold">{name}</h1>
+      <span class="text-sm uppercase tracking-wide px-3 py-1 rounded-full bg-gray-100 dark:bg-slate-800">
+        {year} · {status}
+      </span>
+    </div>
+
+    {
+      heroImage && (
+        <Image
+          src={heroImage}
+          alt={`TODO: alt — ${name}`}
+          width={1200}
+          height={675}
+          class="w-full rounded-lg mb-8 object-cover"
+        />
+      )
+    }
+
+    {
+      specs && (
+        <dl class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 text-sm">
+          {specs.wingspan && (
+            <div>
+              <dt class="text-muted uppercase text-xs">Wingspan</dt>
+              <dd class="font-semibold">{specs.wingspan}</dd>
+            </div>
+          )}
+          {specs.MTOW && (
+            <div>
+              <dt class="text-muted uppercase text-xs">MTOW</dt>
+              <dd class="font-semibold">{specs.MTOW}</dd>
+            </div>
+          )}
+          {specs.endurance && (
+            <div>
+              <dt class="text-muted uppercase text-xs">Endurance</dt>
+              <dd class="font-semibold">{specs.endurance}</dd>
+            </div>
+          )}
+          {specs.propulsion && (
+            <div>
+              <dt class="text-muted uppercase text-xs">Propulsion</dt>
+              <dd class="font-semibold">{specs.propulsion}</dd>
+            </div>
+          )}
+        </dl>
+      )
+    }
+
+    <div class="prose dark:prose-invert max-w-none mb-8">
+      <Content />
+    </div>
+
+    {
+      gallery && gallery.length > 0 && (
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
+          {gallery.map((src) => (
+            <Image
+              src={src}
+              alt={`TODO: alt — ${name} photo`}
+              width={600}
+              height={400}
+              class="w-full h-40 object-cover rounded-md"
+            />
+          ))}
+        </div>
+      )
+    }
+
+    <Button href={docsUrl || getPermalink('/docs')} variant="primary"> Full documentation </Button>
+  </WidgetWrapper>
+</Layout>
