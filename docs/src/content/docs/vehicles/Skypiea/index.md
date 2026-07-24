@@ -22,7 +22,7 @@ This guide covers the essential steps required to bring Skypiea to operational r
 - **Geofencing**: Safety boundaries and restricted areas
 - **Pre-Flight Verification**: System checks before deployment
 
-## Quick Start
+## Avionics Setup
 
 Follow these sections in order to properly configure Skypiea:
 
