@@ -1,1 +1,0 @@
-RNGFND1_TYPE = 20

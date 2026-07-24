@@ -8,6 +8,9 @@ import starlight from '@astrojs/starlight';
 // TODO: set `site` to the real deployed domain once known (needed for sitemap/canonical URLs).
 export default defineConfig({
   base: '/docs',
+  // Matches the main site's trailingSlash setting — this project's output is served from
+  // the same origin once merged, so both must agree or internal links 404 in production.
+  trailingSlash: 'never',
   integrations: [
     starlight({
       title: 'UMBC SUAS Docs',
