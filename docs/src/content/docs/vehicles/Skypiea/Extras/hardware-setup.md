@@ -2,8 +2,8 @@
 title: Hardware Setup
 description: Wiring and serial port configuration for Skypiea's flight controller.
 sidebar:
-  order: 3
-  label: 1.3 Hardware Setup
+  order: 1
+  label: 1.1.1 Hardware Setup
 ---
 
 ## Flight Controller Overview

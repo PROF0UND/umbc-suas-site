@@ -3,7 +3,7 @@ title: Flight Controller
 description: Hardware selection and rationale for Skypiea's flight controller.
 sidebar:
   order: 2
-  label: 1.2 Flight Controller
+  label: 1.1.2 Flight Controller
 ---
 
 ## Hardware Selection: Mateksys H743 WLITE
