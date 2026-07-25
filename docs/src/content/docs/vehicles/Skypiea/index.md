@@ -26,15 +26,15 @@ This guide covers the essential steps required to bring Skypiea to operational r
 
 Follow these sections in order to properly configure Skypiea:
 
-1. [Flight Controller](/docs/vehicles/skypiea/flight-controller) — hardware selection and rationale
-2. [Hardware Setup](/docs/vehicles/skypiea/hardware-setup) — wiring and serial port configuration
+1. [Flight Controller](/docs/vehicles/skypiea/avionics/flight-controller) — hardware selection and rationale
+2. [Hardware Setup](/docs/vehicles/skypiea/avionics/hardware-setup) — wiring and serial port configuration
 
 ## Extra info
 
 Additional information on the hardware and parameters being used: 
 
-1. [Rangefinder](/docs/vehicles/skypiea/rangefinder) — lidar altimeter parameters
-2. [Airspeed Sensor](/docs/vehicles/skypiea/airspeed-sensor) — airspeed sensor parameters
-3. [Fence](/docs/vehicles/skypiea/fence) — geofence safety parameters
+1. [Rangefinder](/docs/vehicles/skypiea/avionics/rangefinder) — lidar altimeter parameters
+2. [Airspeed Sensor](/docs/vehicles/skypiea/avionics/airspeed-sensor) — airspeed sensor parameters
+3. [Fence](/docs/vehicles/skypiea/avionics/fence) — geofence safety parameters
 
 Each section is self-contained but builds upon the previous configuration steps. Ensure all hardware is properly connected before proceeding to parameter configuration.

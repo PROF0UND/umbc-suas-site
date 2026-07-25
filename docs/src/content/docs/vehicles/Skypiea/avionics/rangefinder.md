@@ -11,6 +11,7 @@ Skypiea uses a [Benewake TF-Luna](https://en.benewake.com/TFLuna/index.html) LiD
 The LiDAR is placed on the belly of the aircraft.
 
 ![Benewake TF-Luna LiDAR](assets/benewake_tf-luna_lidar1.jpg)
+*Image Source: [Benewake TF-Luna Website](https://en.benewake.com/TFLuna/index.html)*
 
 To enable the LiDAR, set the following parameters:
 
